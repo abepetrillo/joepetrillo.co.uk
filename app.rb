@@ -23,6 +23,16 @@ get '/' do
   erb :index
 end
 
+get '/opening_times' do
+  erb :opening_times
+end
+
+get '/pricing' do
+end
+
+get '/location' do
+end
+
 get '/login/form' do 
   erb :login_form
 end
