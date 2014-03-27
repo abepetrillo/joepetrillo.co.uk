@@ -35,6 +35,10 @@ get '/location' do
   erb :location
 end
 
+get '/contact' do
+  erb :contact
+end
+
 get '/login/form' do 
   erb :login_form
 end
