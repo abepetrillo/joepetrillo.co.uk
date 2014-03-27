@@ -28,9 +28,11 @@ get '/opening_times' do
 end
 
 get '/pricing' do
+  erb :pricing
 end
 
 get '/location' do
+  erb :location
 end
 
 get '/login/form' do 
