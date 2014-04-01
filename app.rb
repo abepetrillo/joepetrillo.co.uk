@@ -44,7 +44,6 @@ get '/logout' do
   erb "<div class='alert alert-message'>Logged out</div>"
 end
 
-
 get '/secure/place' do
   erb "This is a secret place that only <%=session[:identity]%> has access to!"
 end
