@@ -72,7 +72,7 @@ post '/mail' do
   valid = (from.domain != nil)
   mail = Mail.new do
     from     email
-    to       ['abe.petrillo@gmail.com', 'jospetrillo@gmail.com']
+    to       ['jospetrillo@gmail.com']
     subject  'Email from joepetrillo.co.uk'
     body     msg
   end
