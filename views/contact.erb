@@ -1,12 +1,12 @@
 <div class="col-lg-8 col-lg-offset-2">
 <% if session[:sent] != nil %>
   <% if session[:sent] %>
-    <div class="alert alert-dismissable alert-success">
+    <div class="alert alert-dismissable alert-success text-center">
       <button type="button" class="close" data-dismiss="alert">×</button>
       <strong>Well done!</strong> You successfully sent us a message. We'll get back to you as soon as we can!
     </div>
   <% else %>
-    <div class="alert alert-dismissable alert-danger">
+    <div class="alert alert-dismissable alert-danger text-center">
       <button type="button" class="close" data-dismiss="alert">×</button>
       <strong>Submission Failed!</strong> Please check you've given us a valid email, and try again.
     </div>
