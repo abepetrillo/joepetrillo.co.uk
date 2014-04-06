@@ -1,5 +1,20 @@
 require 'rubygems'
 require 'sinatra'
+require 'mail'
+require 'debugger' unless Sinatra::Base.production?
+Mail.defaults do
+  if Sinatra::Base.production?
+    delivery_method :smtp,
+      :address => "smtp.sendgrid.net",
+      :port => '25',
+      :authentication => :plain,
+      :user_name => ENV['SENDGRID_USERNAME'],
+      :password => ENV['SENDGRID_PASSWORD'],
+      :domain => ENV['SENDGRID_DOMAIN']
+  else
+    delivery_method :test
+  end
+end
 
 configure do
   enable :sessions
@@ -46,4 +61,19 @@ end
 
 get '/secure/place' do
   erb "This is a secret place that only <%=session[:identity]%> has access to!"
+end
+
+ 
+post '/mail' do
+  email = params[:email]
+  msg = params[:message]
+  mail = Mail.new do
+    from     email
+    to       'abe.petrillo@gmail.com'
+    subject  'Email from joepetrillo.co.uk'
+    body     msg
+  end
+  
+  session[:sent] = mail.deliver
+  erb :contact
 end
