@@ -67,6 +67,9 @@ end
 post '/mail' do
   email = params[:email]
   msg = params[:message]
+  #Check the email address
+  from = Mail::Address.new(email)
+  valid = (from.domain != nil)
   mail = Mail.new do
     from     email
     to       'abe.petrillo@gmail.com'
@@ -74,6 +77,6 @@ post '/mail' do
     body     msg
   end
   
-  session[:sent] = mail.deliver
+  session[:sent] = valid && mail.deliver
   erb :contact
 end
