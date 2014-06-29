@@ -1,4 +1,19 @@
 <link rel="stylesheet" href="vendor/blueimp/css/blueimp-gallery.min.css">
+<style>
+  #links {
+    background-color: black;
+    text-align: center;
+  }
+  #links a {
+    padding: 5px;
+    margin-bottom: 10px;
+    
+    display: inline-block;
+  }
+  #links a img {
+    width: 55px;
+  }
+</style>
 
 <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
@@ -26,11 +41,10 @@
     return s;
   }
 
-
   var container = document.getElementById('links')
   for(i=1;i<35;i++){
     link = document.createElement('a')
-    link.href = '/img/thumbnails/image' + intergerPad(i, 3) + '.jpg'
+    link.href = '/img/gallery/image_' + intergerPad(i, 3) + '.jpg'
     img = document.createElement('img')
     img.src = '/img/thumbnails/image' + intergerPad(i, 3) + '.jpg'
     link.appendChild(img)
