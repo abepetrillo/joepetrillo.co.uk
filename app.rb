@@ -50,6 +50,10 @@ get '/location' do
   erb :location
 end
 
+get '/gallery' do
+  erb :gallery
+end
+
 get '/contact' do
   erb :contact
 end
