@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'mail'
-require 'debugger' unless Sinatra::Base.production?
+
 Mail.defaults do
   if Sinatra::Base.production?
     delivery_method :smtp,
@@ -67,7 +67,7 @@ get '/secure/place' do
   erb "This is a secret place that only <%=session[:identity]%> has access to!"
 end
 
- 
+
 post '/mail' do
   email = params[:email]
   msg = params[:message]
@@ -80,7 +80,7 @@ post '/mail' do
     subject  'Email from joepetrillo.co.uk'
     body     msg
   end
-  
+
   session[:sent] = valid && mail.deliver
   erb :contact
 end
