@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'sinatra'
 require 'mail'
+require 'neography'
+require 'pry'
 
 Mail.defaults do
   if Sinatra::Base.production?
@@ -48,6 +50,30 @@ end
 
 get '/location' do
   erb :location
+end
+
+get '/training' do
+   erb :training
+end
+
+post '/training' do
+   @neo = Neography::Rest.new(ENV["GRAPHSTORY_URL"]);
+   n = @neo.create_node({email: params[:email]})
+   selected = [
+     :cutting, :hair_up, :drying, :colouring
+   ].select do |k|
+     params[:type][k] == 'true'
+   end.map do |s|
+     "c.type =~ '(?i)#{s}'"
+   end.join(' OR ')
+   puts selected
+   query = "MATCH (c:Course) WHERE #{selected} RETURN c"
+   result = @neo.execute_query(query)
+   types = result['data'].map {|n| @neo.get_node(n.first['self']) }
+   types.each do |t|
+     @neo.create_relationship('interested_in', n, t)
+   end
+   erb :training
 end
 
 get '/gallery' do

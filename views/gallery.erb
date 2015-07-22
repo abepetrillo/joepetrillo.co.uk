@@ -1,17 +1,16 @@
 <link rel="stylesheet" href="vendor/blueimp/css/blueimp-gallery.min.css">
 <style>
   #links {
-    background-color: black;
     text-align: center;
   }
   #links a {
     padding: 5px;
     margin-bottom: 10px;
-    
+
     display: inline-block;
   }
   #links a img {
-    width: 55px;
+    width: 52px;
   }
 </style>
 
@@ -25,8 +24,9 @@
     <a class="play-pause"></a>
     <ol class="indicator"></ol>
 </div>
-
-<div id="links">
+<div class="well">
+  <div id="links">
+  </div>
 </div>
 
 <script>
@@ -41,14 +41,18 @@
     return s;
   }
 
-  var container = document.getElementById('links')
+  var container = document.getElementById('links');
+  var missing = []
+  missing['009'] = true
   for(i=1;i<35;i++){
-    link = document.createElement('a')
-    link.href = '/img/gallery/image_' + intergerPad(i, 3) + '.jpg'
-    img = document.createElement('img')
-    img.src = '/img/thumbnails/image' + intergerPad(i, 3) + '.jpg'
-    link.appendChild(img)
-    container.appendChild(link)
+    if(!missing[intergerPad(i, 3)]) {
+      link = document.createElement('a')
+      link.href = '/img/gallery/image_' + intergerPad(i, 3) + '.jpg'
+      img = document.createElement('img')
+      img.src = '/img/thumbnails/image' + intergerPad(i, 3) + '.jpg'
+      link.appendChild(img)
+      container.appendChild(link)
+    }
   }
 })();
 

@@ -1,0 +1,16 @@
+.training .panel .panel-heading .panel-title {
+  display: inline-block;
+  width: 65%;
+}
+
+.training .panel .panel-heading .checkbox {
+  display: inline-block;
+  width: 30%;
+  min-height: 0;
+  margin: 0;
+  text-align: right;
+}
+
+.training .panel .panel-heading .checkbox input {
+  float: right;
+}
