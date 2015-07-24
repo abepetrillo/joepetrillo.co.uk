@@ -18,6 +18,7 @@ GEM
       os (>= 0.9.6)
       rake (>= 0.8.7)
       rubyzip (>= 1.0.0)
+    newrelic_rpm (3.12.1.298)
     os (0.9.6)
     polyglot (0.3.4)
     pry (0.10.1)
@@ -60,6 +61,7 @@ PLATFORMS
 DEPENDENCIES
   mail
   neography
+  newrelic_rpm
   pry
   rack-test
   rspec
