@@ -1,4 +1,18 @@
 <div class="well training">
+  <% if session[:training_signup] != nil %>
+    <% if session[:training_signup] %>
+      <div class="alert alert-dismissable alert-success text-center">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>Thanks!</strong> We'll let you know as soon as we ready to take reservations.
+      </div>
+    <% else %>
+      <div class="alert alert-dismissable alert-danger text-center">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>Submission Failed!</strong> Please check you've given us a valid email, and selected at least one course.
+      </div>
+    <% end %>
+    <% session.delete(:training_signup) %>
+  <% end %>
    <link rel="stylesheet" href="/css/training.css">
     <div class="row">
     <div class="col-lg-12">

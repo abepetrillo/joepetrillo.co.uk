@@ -28,14 +28,6 @@ helpers do
   end
 end
 
-before '/secure/*' do
-  if !session[:identity] then
-    session[:previous_url] = request.path
-    @error = 'Sorry guacamole, you need to be logged in to visit ' + request.path
-    halt erb(:login_form)
-  end
-end
-
 get '/' do
   erb :index
 end
@@ -57,23 +49,29 @@ get '/training' do
 end
 
 post '/training' do
-   @neo = Neography::Rest.new(ENV["GRAPHSTORY_URL"]);
-   n = @neo.create_node({email: params[:email]})
-   selected = [
-     :cutting, :hair_up, :drying, :colouring
-   ].select do |k|
-     params[:type][k] == 'true'
-   end.map do |s|
-     "c.type =~ '(?i)#{s}'"
-   end.join(' OR ')
-   puts selected
-   query = "MATCH (c:Course) WHERE #{selected} RETURN c"
-   result = @neo.execute_query(query)
-   types = result['data'].map {|n| @neo.get_node(n.first['self']) }
-   types.each do |t|
-     @neo.create_relationship('interested_in', n, t)
-   end
-   erb :training
+  if params[:email] && validate_email(params[:email]) && params[:type]
+    @neo = Neography::Rest.new(ENV["GRAPHSTORY_URL"]);
+    n = @neo.create_node({email: params[:email]})
+    selected = [
+      :cutting, :hair_up, :drying, :colouring
+    ].select do |k|
+      params[:type][k] == 'true'
+    end.map do |s|
+      "c.type =~ '(?i)#{s}'"
+    end.join(' OR ')
+    query = "MATCH (c:Course) WHERE #{selected} RETURN c"
+    result = @neo.execute_query(query)
+    types = result['data'].map {|n| @neo.get_node(n.first['self']) }
+    types.each do |t|
+      @neo.create_relationship('interested_in', n, t)
+    end
+    status 200
+    session[:training_signup] = true
+  else
+    status 400
+    session[:training_signup] = false
+  end
+  erb :training
 end
 
 get '/gallery' do
@@ -91,6 +89,10 @@ end
 
 get '/secure/place' do
   erb "This is a secret place that only <%=session[:identity]%> has access to!"
+end
+
+def validate_email(email)
+  Mail::Address.new(email).domain != nil
 end
 
 
