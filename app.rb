@@ -105,7 +105,7 @@ post '/mail' do
   valid = (from.domain != nil) && ENV.fetch('BANNED_EMAIL_DOMAINS', []).split(',').include? from.domain
   mail = Mail.new do
     from     email
-    to       ['jospetrillo@gmail.com']
+    to       ENV.fetch('EMAIL_TO_LIST').split(',')
     subject  'Email from joepetrillo.co.uk'
     body     msg
   end
