@@ -96,16 +96,20 @@ def validate_email(email)
   Mail::Address.new(email).domain != nil
 end
 
+def validate_domain(email)
+   !(ENV.fetch('BANNED_EMAIL_DOMAINS', '').split(',').include? Mail::Address.new(email).domain)
+end
+
 
 post '/mail' do
   email = params[:email]
   msg = params[:message]
   #Check the email address
   from = Mail::Address.new(email)
-  valid = (from.domain != nil) && (ENV.fetch('BANNED_EMAIL_DOMAINS', []).split(',').include? from.domain)
+  valid = validate_email(email) && validate_domain(email)
   mail = Mail.new do
     from     email
-    to       ENV.fetch('EMAIL_TO_LIST').split(',')
+    to       ENV.fetch('EMAIL_TO_LIST', '').split(',')
     subject  'Email from joepetrillo.co.uk'
     body     msg
   end
