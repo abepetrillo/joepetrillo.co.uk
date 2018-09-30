@@ -102,7 +102,7 @@ post '/mail' do
   msg = params[:message]
   #Check the email address
   from = Mail::Address.new(email)
-  valid = (from.domain != nil) && ENV.fetch('BANNED_EMAIL_DOMAINS', []).split(',').include? from.domain
+  valid = (from.domain != nil) && (ENV.fetch('BANNED_EMAIL_DOMAINS', []).split(',').include? from.domain)
   mail = Mail.new do
     from     email
     to       ENV.fetch('EMAIL_TO_LIST').split(',')
