@@ -110,7 +110,7 @@ post '/mail' do
   mail = Mail.new do
     from     email
     to       ENV.fetch('EMAIL_TO_LIST', '').split(',')
-    bcc      ENV.fetch)('EMAIL_BCC_LIST', '').split(',')
+    bcc      ENV.fetch('EMAIL_BCC_LIST', '').split(',')
     subject  'Email from joepetrillo.co.uk'
     body     msg
   end
