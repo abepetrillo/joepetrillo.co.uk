@@ -18,7 +18,6 @@ GEM
       os (>= 0.9.6)
       rake (>= 0.8.7)
       rubyzip (>= 1.0.0)
-    newrelic_rpm (5.4.0.347)
     os (1.0.0)
     pry (0.11.3)
       coderay (~> 1.1.0)
@@ -56,7 +55,6 @@ PLATFORMS
 DEPENDENCIES
   mail
   neography
-  newrelic_rpm
   pry
   rack-test
   rspec
