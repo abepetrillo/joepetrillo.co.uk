@@ -1,9 +1,11 @@
 require 'rubygems'
 require 'sinatra'
-require 'newrelic_rpm'
 require 'mail'
 require 'neography'
-require 'pry'
+require 'rollbar'
+Rollbar.configure do |config|
+  config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
+end
 
 Mail.defaults do
   if Sinatra::Base.production?

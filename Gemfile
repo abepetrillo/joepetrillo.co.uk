@@ -5,6 +5,7 @@ gem "sinatra"
 gem 'mail'
 gem 'neography'
 gem 'pry'
+gem 'rollbar'
 
 group :test do
    gem 'rspec'
