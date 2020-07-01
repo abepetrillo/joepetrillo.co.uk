@@ -115,19 +115,21 @@ end
 
 
 post '/mail' do
-  email = params[:email]
-  msg = params[:message]
-  #Check the email address
-  from = Mail::Address.new(email)
-  valid = validate_email(email) && validate_domain(email)
-  mail = Mail.new do
-    from     email
-    to       ENV.fetch('EMAIL_TO_LIST', '').split(',')
-    bcc      ENV.fetch('EMAIL_BCC_LIST', '').split(',')
-    subject  'Email from joepetrillo.co.uk'
-    body     msg
-  end
+  if verify_recaptcha
+    email = params[:email]
+    msg = params[:message]
+    #Check the email address
+    from = Mail::Address.new(email)
+    valid = validate_email(email) && validate_domain(email)
+    mail = Mail.new do
+      from     email
+      to       ENV.fetch('EMAIL_TO_LIST', '').split(',')
+      bcc      ENV.fetch('EMAIL_BCC_LIST', '').split(',')
+      subject  'Email from joepetrillo.co.uk'
+      body     msg
+    end
 
-  session[:sent] = valid && mail.deliver
+    session[:sent] = valid && mail.deliver
+  end
   erb :contact
 end
