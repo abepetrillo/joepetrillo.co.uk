@@ -132,7 +132,8 @@ post '/mail' do
       subject  'Email from joepetrillo.co.uk'
       body     msg
     end
-
+    @email = nil
+    @message = nil
     session[:sent] = valid && mail.deliver
   else
     if !success
