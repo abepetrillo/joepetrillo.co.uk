@@ -21,17 +21,21 @@
       <div class="form-group">
         <label for="inputEmail" class="col-lg-2 control-label">Email</label>
         <div class="col-lg-10">
-          <input type="email" class="form-control" id="inputEmail" name="email" placeholder="email...">
+          <input type="email" class="form-control" id="inputEmail" name="email" placeholder="email..." value="<%=@email%>">
         </div>
       </div>
       <div class="form-group">
         <label for="textArea" class="col-lg-2 control-label">Message</label>
         <div class="col-lg-10">
-          <textarea class="form-control" rows="3" id="textArea" name="message"></textarea>
+          <textarea class="form-control" rows="3" id="textArea" name="message"><%= @message %></textarea>
         </div>
       </div>
       <div class="form-group">
-        <%= recaptcha_tags %>
+        <% if @show_checkbox_recaptcha %>
+          <%= recaptcha_tags %>
+        <% else %>
+          <%= recaptcha_v3(action: 'mail') %>
+        <% end %>
       </div>
       <div class="form-group">
         <div class="col-lg-8 col-lg-offset-2">
