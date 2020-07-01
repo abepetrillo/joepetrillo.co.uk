@@ -28,6 +28,8 @@ GEM
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rake (13.0.1)
+    recaptcha (5.5.0)
+      json
     rollbar (2.22.1)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
@@ -58,12 +60,13 @@ DEPENDENCIES
   neography
   pry
   rack-test
+  recaptcha
   rollbar
   rspec
   sinatra
 
 RUBY VERSION
-   ruby 2.5.5p157
+   ruby 2.6.2p47
 
 BUNDLED WITH
    1.17.3

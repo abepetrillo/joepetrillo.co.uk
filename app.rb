@@ -3,6 +3,17 @@ require 'sinatra'
 require 'mail'
 require 'neography'
 require 'rollbar'
+require 'recaptcha'
+
+
+Recaptcha.configure do |config|
+  config.site_key  = ENV['RECAPTCHA_SITE_KEY'] || '6Le7oRETAAAAAETt105rjswZ15EuVJiF7BxPROkY'
+  config.secret_key = ENV['RECAPTCHA_SECRET_KEY'] || '6Le7oRETAAAAAL5a8yOmEdmDi3b2pH7mq5iH1bYK'
+end
+
+include Recaptcha::Adapters::ControllerMethods
+include Recaptcha::Adapters::ViewMethods
+
 Rollbar.configure do |config|
   config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
 end
