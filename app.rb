@@ -116,10 +116,9 @@ end
 
 post '/mail' do
   success = verify_recaptcha(action: 'mail', minimum_score: 0.6)
-  checkbox_success = verify_recaptcha unless success
   @email = params[:email]
   @message = params[:message]
-  if success || checkbox_success
+  if success
     email = params[:email]
     msg = params[:message]
     #Check the email address
@@ -135,10 +134,6 @@ post '/mail' do
     @email = nil
     @message = nil
     session[:sent] = valid && mail.deliver
-  else
-    if !success
-      @show_checkbox_recaptcha = true
-    end
   end
   erb :contact
 end
