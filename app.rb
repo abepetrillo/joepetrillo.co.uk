@@ -134,6 +134,8 @@ post '/mail' do
     @email = nil
     @message = nil
     session[:sent] = valid && mail.deliver
+  else
+    session[:sent] = false
   end
   erb :contact
 end
